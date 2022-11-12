@@ -20,6 +20,11 @@ else {
 if (type == global.rock) sprite_index = spr_rock;
 if (type == global.paper) sprite_index = spr_paper;
 if (type == global.scissors) sprite_index = spr_scissors;
+
+
+//add two more sprites
+if (type == global.bomb) sprite_index = spr_bomb;
+if (type == global.peace) sprite_index = spr_peace;
 if (face_up == false) sprite_index = spr_back;
 
 //actually draw it

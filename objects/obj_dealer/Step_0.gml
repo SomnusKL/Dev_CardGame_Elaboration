@@ -6,7 +6,38 @@ switch (global.phase){
 		if (move_timer == 0){
 			audio_play_sound(snd_flip2,0,0);
 			
-			//first deal until the computer hand is full
+			
+			//deal the first line of the board
+			if (ds_list_size(board1) < 3){
+				var card = deck[| ds_list_size(deck)-1];
+				ds_list_delete(deck,ds_list_size(deck)-1);
+				ds_list_add(board1,card);
+				
+				card.target_x = 120 + 100*ds_list_size(board1);
+				card.target_y = 80;
+			}
+			
+			//deal the second line of the board
+			if (ds_list_size(board2) < 3){
+				var card = deck[| ds_list_size(deck)-1];
+				ds_list_delete(deck,ds_list_size(deck)-1);
+				ds_list_add(board2,card);
+				
+				card.target_x = 120 + 100*ds_list_size(board2);
+				card.target_y = 220;
+			}
+			
+			//deal the third line of the board
+			if (ds_list_size(board3) < 3){
+				var card = deck[| ds_list_size(deck)-1];
+				ds_list_delete(deck,ds_list_size(deck)-1);
+				ds_list_add(board3,card);
+				
+				card.target_x = 120 + 100*ds_list_size(board3);
+				card.target_y = 360;
+			}
+			
+			/*//first deal until the computer hand is full
 			if (ds_list_size(hand_computer) < 3){
 				var card = deck[| ds_list_size(deck)-1];
 				ds_list_delete(deck,ds_list_size(deck)-1);
@@ -26,6 +57,7 @@ switch (global.phase){
 				
 				ds_list_add(hand_player,card);
 			}
+			
 			//then flip the player cards up and change state
 			else {
 				for (i=0; i<3; i++){
@@ -33,7 +65,7 @@ switch (global.phase){
 				}
 				wait_timer=0;
 				global.phase = global.phase_computer;	
-			}
+			}*/
 		}
 		break;
 		

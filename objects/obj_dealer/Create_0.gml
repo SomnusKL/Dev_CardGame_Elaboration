@@ -13,8 +13,8 @@ global.phase = global.phase_deal;
 global.selected_card = noone;
 
 //enumerate card types
-global.rock = 0;
-global.paper = 1;
+global.peace = 0;
+global.bomb = 1;
 global.scissors = 2;
 
 //track scores
@@ -32,6 +32,10 @@ deck = ds_list_create();
 hand_computer = ds_list_create();
 hand_player = ds_list_create();
 discard_pile = ds_list_create();
+//create board list
+board1 = ds_list_create();
+board2 = ds_list_create();
+board3 = ds_list_create();
 
 //single card refs for the play, no need for a list there
 play_computer = noone;
@@ -42,13 +46,13 @@ for (i=0; i<deck_size; i++) {
 	var newcard = instance_create_layer(0,0,"Instances",obj_card);
 	newcard.face_up = false;
 	if (i<deck_size/3){
-		newcard.type = global.rock;
+		newcard.type = global.peace;
 	}
 	else if (i<2*deck_size/3){
-		newcard.type = global.paper;
+		newcard.type = global.bomb;
 	}
 	else {
-		newcard.type = global.scissors;
+		newcard.type = global.peace;
 	}
 	ds_list_add(deck,newcard);	
 }
