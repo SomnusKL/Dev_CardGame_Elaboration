@@ -60,7 +60,7 @@
     "eventStubScript": null,
     "parent": {"name":"spr_back","path":"sprites/spr_back/spr_back.yy",},
     "resourceVersion": "1.4",
-    "name": "",
+    "name": "spr_back",
     "tags": [],
     "resourceType": "GMSequence",
   },
