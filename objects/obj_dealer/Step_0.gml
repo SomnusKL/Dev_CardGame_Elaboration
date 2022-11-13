@@ -45,12 +45,13 @@ switch (global.phase){
 		
 	case global.phase_computer:
 		wait_timer++;
-		if (wait_timer == 30){
+		if (wait_timer == 100){
 			//computer plays random card then change state
 			var index = irandom_range(0,ds_list_size(board)-1);
 			play_computer = board[| index];
 			play_computer.face_up = true;
 			ds_list_delete(board,index);
+			show_debug_message(ds_list_size(board));
 			audio_play_sound(snd_flip2,0,0);
 			if(play_computer.type == global.bomb){
 				instance_create_layer(0,0,"Instances",obj_camera);
@@ -80,6 +81,7 @@ switch (global.phase){
 				play_player = board[| hand_index];
 				play_player.face_up = true;
 				ds_list_delete(board,hand_index);
+				show_debug_message(ds_list_size(board));
 
 				audio_play_sound(snd_flip2,0,0);
 				
@@ -108,24 +110,28 @@ switch (global.phase){
 				player_score ++;
 				audio_play_sound(snd_win,0,0);
 			}
-			global.phase = global.phase_result;
+			if(ds_list_size(board) > 0){
+			global.phase = global.phase_computer;
 			wait_timer = 10;
+			}else
+			{
+				global.phase = global.phase_result;
+			}
 		}
 		break;
 		
 	//move the cards over to the discard pile after a delay
 	case global.phase_result:
 		wait_timer++;
+		show_debug_message("enter result phase");
 		if (move_timer == 0) && (wait_timer>60){
-			if (play_computer != noone){
+			
 				ds_list_add(discard_pile,play_computer);
 				play_computer.target_x = 600;
 				play_computer.target_y = 320 - ds_list_size(discard_pile)*2;
 				play_computer.targetdepth = deck_size-ds_list_size(discard_pile);
 				play_computer = noone;
 				audio_play_sound(snd_flip2, 0,0);
-			}
-			else if (play_player != noone){
 				ds_list_add(discard_pile,play_player);
 				play_player.target_x = 600;
 				play_player.target_y = 320 - ds_list_size(discard_pile)*2;
@@ -137,7 +143,7 @@ switch (global.phase){
 			}
 			
 			//if there are still cards in the deck, deal them
-			else if (ds_list_size(deck) > 0 && ds_list_size(board) == 0) {
+			if (ds_list_size(deck) > 0 && ds_list_size(board) == 0) {
 				global.phase = global.phase_deal;	
 				wait_timer = 0;
 			}
@@ -146,7 +152,6 @@ switch (global.phase){
 				global.phase = global.phase_cleanup;
 				wait_timer = 0;
 			}
-		}
 	
 		break;
 		
