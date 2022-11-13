@@ -6,36 +6,27 @@ switch (global.phase){
 		if (move_timer == 0){
 			audio_play_sound(snd_flip2,0,0);
 			
-			
-			//deal the first line of the board
-			if (ds_list_size(board1) < 3){
+
+			//deal a 3*3 board
+			if (ds_list_size(board) < 9){
+
 				var card = deck[| ds_list_size(deck)-1];
 				ds_list_delete(deck,ds_list_size(deck)-1);
-				ds_list_add(board1,card);
+				ds_list_add(board,card);
 				
-				card.target_x = 120 + 100*ds_list_size(board1);
-				card.target_y = 80;
+				card.target_x = 120 + 100*count;
+				card.target_y = 80 + 150*row;
+				count ++;
 			}
+			if(count == 3){
+				row ++;
+				count = 0;
+			}
+
 			
-			//deal the second line of the board
-			if (ds_list_size(board2) < 3){
-				var card = deck[| ds_list_size(deck)-1];
-				ds_list_delete(deck,ds_list_size(deck)-1);
-				ds_list_add(board2,card);
-				
-				card.target_x = 120 + 100*ds_list_size(board2);
-				card.target_y = 220;
-			}
+
 			
-			//deal the third line of the board
-			if (ds_list_size(board3) < 3){
-				var card = deck[| ds_list_size(deck)-1];
-				ds_list_delete(deck,ds_list_size(deck)-1);
-				ds_list_add(board3,card);
-				
-				card.target_x = 120 + 100*ds_list_size(board3);
-				card.target_y = 360;
-			}
+			
 			
 			/*//first deal until the computer hand is full
 			if (ds_list_size(hand_computer) < 3){

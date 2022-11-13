@@ -17,6 +17,10 @@ global.peace = 0;
 global.bomb = 1;
 global.scissors = 2;
 
+//row count
+row = 0;
+count = 0;
+
 //track scores
 computer_score = 0;
 player_score = 0;
@@ -33,9 +37,7 @@ hand_computer = ds_list_create();
 hand_player = ds_list_create();
 discard_pile = ds_list_create();
 //create board list
-board1 = ds_list_create();
-board2 = ds_list_create();
-board3 = ds_list_create();
+board = ds_list_create();
 
 //single card refs for the play, no need for a list there
 play_computer = noone;
