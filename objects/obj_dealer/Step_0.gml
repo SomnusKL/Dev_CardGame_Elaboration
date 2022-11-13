@@ -3,8 +3,9 @@ switch (global.phase){
 	//deal out the cards, three per player
 	case global.phase_deal:
 		//move_timer kicks over to 0 every 16 frames
+		show_debug_message("enter deal phase");
 		if (move_timer == 0){
-			audio_play_sound(snd_flip2,0,0);
+			
 			
 
 			//deal a 3*3 board
@@ -12,21 +13,24 @@ switch (global.phase){
 
 				var card = deck[| ds_list_size(deck)-1];
 				ds_list_delete(deck,ds_list_size(deck)-1);
+				card.in_hand=true;
 				ds_list_add(board,card);
 				
-				card.target_x = 120 + 100*count;
+				card.target_x = 220 + 100*count;
 				card.target_y = 80 + 150*row;
 				count ++;
+				audio_play_sound(snd_flip2,0,0);
 			}
 			if(count == 3){
 				row ++;
 				count = 0;
 			}
+			if(ds_list_size(board) == 9){
+				wait_timer = 0;
+				global.phase = global.phase_select;
+				
+			}
 
-			
-
-			
-			
 			
 			/*//first deal until the computer hand is full
 			if (ds_list_size(hand_computer) < 3){
@@ -57,38 +61,25 @@ switch (global.phase){
 				wait_timer=0;
 				global.phase = global.phase_computer;	
 			}*/
+			
+		
+		
 		}
 		break;
 		
-	case global.phase_computer:
-		//wait a few frames..
-		wait_timer++;
-		if (wait_timer == 30){
-			//computer plays random card then change state
-			var index = irandom_range(0,ds_list_size(hand_computer)-1);
-			play_computer = hand_computer[| index];
-			play_computer.target_x = 320;
-			play_computer.target_y = 240;
-			ds_list_delete(hand_computer,index);
-			audio_play_sound(snd_flip2,0,0);
-			wait_timer = 0;
-			global.phase = global.phase_select;
-		}
-
-		break;
 	
 	case global.phase_select:
+		show_debug_message("enter select phase");
 		
 		if (mouse_check_button_pressed(mb_left)){
 			//this selected_card variable is set by the card itself
 			if (global.selected_card != noone){
+				show_debug_message("select");
 				//play the card
-				var hand_index = ds_list_find_index(hand_player, global.selected_card);
-				play_player = hand_player[| hand_index];
-				play_player.target_x = 320;
-				play_player.target_y = 386;
-				play_player.in_hand = false;
-				ds_list_delete(hand_player,hand_index);
+				var hand_index = ds_list_find_index(board, global.selected_card);
+				play_player = board[| hand_index];
+				play_player.face_up = true;
+
 				audio_play_sound(snd_flip2,0,0);
 				global.phase = global.phase_play;
 				global.selected_card = noone;
@@ -99,11 +90,24 @@ switch (global.phase){
 		break;
 		
 	//resolve the winner or loser after a delay	
+	
 	case global.phase_play:
+		show_debug_message("enter play phase");
 		wait_timer++;
 		if (wait_timer > 100){
-			play_computer.face_up = true;
+			
 			global.phase = global.phase_result;
+			
+			if(play_player.type == global.bomb){
+				computer_score ++;
+				player_score --;
+				audio_play_sound(snd_lose,0,0);
+			}
+			else if(play_player.type == global.peace){
+				player_score ++;
+				audio_play_sound(snd_win,0,0);
+			}
+			/*
 			if (play_computer.type == global.paper){
 				if (play_player.type == global.rock){
 					computer_score ++;
@@ -133,7 +137,7 @@ switch (global.phase){
 					player_score ++;
 					audio_play_sound(snd_win,0,0);
 				}
-			}
+			}*/
 			wait_timer = 10;
 		}
 		break;

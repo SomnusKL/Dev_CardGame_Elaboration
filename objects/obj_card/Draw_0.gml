@@ -17,8 +17,7 @@ else {
 }
 
 //set the appearance based on the state of the card
-if (type == global.rock) sprite_index = spr_rock;
-if (type == global.paper) sprite_index = spr_paper;
+
 if (type == global.scissors) sprite_index = spr_scissors;
 
 
