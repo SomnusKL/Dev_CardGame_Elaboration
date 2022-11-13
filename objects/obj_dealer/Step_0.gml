@@ -14,10 +14,11 @@ switch (global.phase){
 				var card = deck[| ds_list_size(deck)-1];
 				ds_list_delete(deck,ds_list_size(deck)-1);
 				card.in_hand=true;
+				card.face_up = true;
 				ds_list_add(board,card);
 				
 				card.target_x = 220 + 100*count;
-				card.target_y = 80 + 150*row;
+				card.target_y = 130 + 150*row;
 				count ++;
 				audio_play_sound(snd_flip2,0,0);
 			}
@@ -26,6 +27,11 @@ switch (global.phase){
 				count = 0;
 			}
 			if(ds_list_size(board) == 9){
+				
+				for (var i = 0; i < ds_list_size(board); i += 1){
+					board[|i].face_up = false;
+				}
+				
 				wait_timer = 0;
 				global.phase = global.phase_select;
 				
@@ -99,6 +105,7 @@ switch (global.phase){
 			global.phase = global.phase_result;
 			
 			if(play_player.type == global.bomb){
+				instance_create_layer(0,0,"Instances",obj_camera);
 				computer_score ++;
 				player_score --;
 				audio_play_sound(snd_lose,0,0);
