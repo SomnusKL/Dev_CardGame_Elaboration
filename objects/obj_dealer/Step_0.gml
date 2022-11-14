@@ -135,6 +135,7 @@ switch (global.phase){
 	case global.phase_result:
 		show_debug_message("enter result phase");
 		wait_timer++;
+		/*
 		if (move_timer == 0)&&(wait_timer>60){
 			 if (ds_list_size(hand_computer) > 0){
 				var card = hand_computer[| 0];
@@ -169,6 +170,13 @@ switch (global.phase){
 				global.phase = global.phase_cleanup;
 				wait_timer = 0;
 			}
+			*/
+			if(computer_score>=player_score){
+				room_goto(Room_Fail);
+			} 
+			if(computer_score < player_score){
+				room_goto(Room_Success);
+			} 
 	
 		break;
 		
