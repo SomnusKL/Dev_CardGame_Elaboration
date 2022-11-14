@@ -2,5 +2,11 @@
 // 你可以在此编辑器中写入代码 
 
 if(mouse_check_button(mb_left)){
+	
 	part_particles_create(global.partSystem, mouse_x, mouse_y, global.ptBasic, 1);
+}
+
+
+if(mouse_check_button_pressed(mb_left)){
+audio_play_sound(snd_click,2,false);
 }

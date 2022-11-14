@@ -1,4 +1,5 @@
 randomize();
+audio_play_sound(snd_background,1,true);
 //enumerate states for the state machine
 global.phase_deal = 0;
 global.phase_computer = 1;
@@ -20,6 +21,7 @@ global.scissors = 2;
 //row count
 row = 0;
 count = 0;
+count_size = 0;
 
 //track scores
 computer_score = 0;

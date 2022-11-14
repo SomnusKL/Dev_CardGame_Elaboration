@@ -7,6 +7,7 @@
     {"id":{"name":"spr_scissors","path":"sprites/spr_scissors/spr_scissors.yy",},"order":5,},
     {"id":{"name":"oGameController","path":"objects/oGameController/oGameController.yy",},"order":5,},
     {"id":{"name":"snd_loseori","path":"sounds/snd_loseori/snd_loseori.yy",},"order":8,},
+    {"id":{"name":"snd_click","path":"sounds/snd_click/snd_click.yy",},"order":11,},
     {"id":{"name":"spr_back","path":"sprites/spr_back/spr_back.yy",},"order":7,},
     {"id":{"name":"snd_lose","path":"sounds/snd_lose/snd_lose.yy",},"order":1,},
     {"id":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},"order":4,},

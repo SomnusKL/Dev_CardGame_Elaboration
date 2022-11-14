@@ -3,4 +3,7 @@
 
 
 draw_set_font(Font1);
-draw_text(room_width/2, room_height/2, "Choose Peace over Bomb" + "\n Take turn to flip the card" + "\n Press space to start!");
+draw_text(room_width/2-100, room_height/2, "Choose Peace over Bomb" + "\n Take turn to flip the card" + "\n Press space to start!");
+
+
+draw_text(room_width/2-100, room_height -50, "Try click your mouse to see my particle effects :D");

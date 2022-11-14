@@ -52,8 +52,9 @@ switch (global.phase){
 			var index = irandom_range(0,ds_list_size(board)-1);
 			play_computer = board[| index];
 			play_computer.face_up = true;
-			ds_list_delete(board,index);
 			ds_list_add(hand_computer,play_computer);
+			ds_list_delete(board,index);
+			
 			show_debug_message(ds_list_size(board));
 			audio_play_sound(snd_flip2,0,0);
 			if(play_computer.type == global.bomb){
@@ -88,8 +89,9 @@ switch (global.phase){
 				var hand_index = ds_list_find_index(board, global.selected_card);
 				play_player = board[| hand_index];
 				play_player.face_up = true;
+				ds_list_add(hand_player,play_player);
 				ds_list_delete(board,hand_index);
-				ds_list_add(hand_computer,play_player);
+				
 				show_debug_message(ds_list_size(board));
 
 				audio_play_sound(snd_flip2,0,0);
@@ -133,26 +135,8 @@ switch (global.phase){
 	case global.phase_result:
 		show_debug_message("enter result phase");
 		wait_timer++;
-		if (move_timer == 0) && (wait_timer>60){
-			if (play_computer != noone){
-				ds_list_add(discard_pile,play_computer);
-				play_computer.target_x = 600;
-				play_computer.target_y = 320 - ds_list_size(discard_pile)*2;
-				play_computer.targetdepth = deck_size-ds_list_size(discard_pile);
-				play_computer = noone;
-				audio_play_sound(snd_flip2, 0,0);
-			}
-			else if (play_player != noone){
-				ds_list_add(discard_pile,play_player);
-				play_player.target_x = 600;
-				play_player.target_y = 320 - ds_list_size(discard_pile)*2;
-				play_player.targetdepth= deck_size-ds_list_size(discard_pile);
-				play_player.in_hand = false;
-				play_player = noone;
-				audio_play_sound(snd_flip2, 0,0);
-				
-			}
-			else if (ds_list_size(hand_computer) > 0){
+		if (move_timer == 0)&&(wait_timer>60){
+			 if (ds_list_size(hand_computer) > 0){
 				var card = hand_computer[| 0];
 				ds_list_delete(hand_computer, 0);
 				ds_list_add(discard_pile, card);
