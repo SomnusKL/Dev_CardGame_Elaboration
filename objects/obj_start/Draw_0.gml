@@ -3,6 +3,7 @@
 
 
 draw_set_font(Font1);
+draw_set_color(c_white);
 draw_text(room_width/2-100, room_height/2, "Choose Peace over Bomb" + "\n Take turn to flip the card" + "\n Press space to start!");
 
 
